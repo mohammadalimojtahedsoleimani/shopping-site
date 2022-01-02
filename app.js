@@ -4,6 +4,8 @@ const cartBtn = document.querySelector(".cart-btn");
 const cartModal = document.querySelector(".cart");
 const backDrop = document.querySelector(".backdrop");
 const closeModal = document.querySelector(".cart-item-confirm");
+const addToCartBtn = document.querySelector(".add-to-cart");
+
 
 const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
@@ -32,7 +34,7 @@ class UI {
                 <p class="product-price">$ ${item.fields.price}</p>
                 <p class="product-title">${item.fields.title}</p>
             </div>
-            <button class="btn bag-btn" data-id = ${item.sys.id}>
+            <button class="add-to-cart" data-id = ${item.sys.id}>
                 <i class="fas fa-shopping-cart"></i>
                 add to cart
             </button>
@@ -40,15 +42,32 @@ class UI {
       productsDOM.innerHTML = result;
     })
   }
+  getAddToCartBtns(){
+    const addTo = document.querySelectorAll(".add-to-cart");
+    console.log(addTo);
+    const lips = [...addTo];
+    lips.forEach((btn)=>{
+      console.log(btn.dataset.id)
+    })
+    console.log(lips)
+  }
 }
 
-class Storage {}
+class Storage {
+  saveProducts (products){
+    //fght be sorat string save mishe pas stringify
+    localStorage.setItem("products" ,JSON.stringify(products))
+  }
+}
 
 window.addEventListener('DOMContentLoaded', (event) => {
   const pro = new Productes();
 const pros =   pro.getProducts();
   const ui = new UI();
   ui.displayProducts(pros);
+  ui.getAddToCartBtns();
+  const sto = new Storage();
+  sto.saveProducts(pros);
 });
 
 function showModalFunction() {
