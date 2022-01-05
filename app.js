@@ -59,9 +59,20 @@ class UI {
                 const addedProduct = Storage.getProduct(id);
                 cart = [...cart, {...addedProduct, quantity: 1}]
                 Storage.saveCart(cart);
+                this.setCartValue(cart)
             })
         })
 
+    }
+
+    setCartValue(cart) {
+        let tempCartItem = 0;
+        const totalPrice = cart.reduce((acc, curr) => {
+            tempCartItem += curr.quantity
+            return acc + curr.quantity * curr.price;
+        }, 0)
+        cartTotal.innerText =  `total price : ${totalPrice.toFixed(2)} $`;
+        cartItems.innerText = tempCartItem;
     }
 }
 
