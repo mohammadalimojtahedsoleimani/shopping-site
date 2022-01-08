@@ -136,7 +136,7 @@ body {
 .product-price {
     color: var(--primaryColor);
 }
-.add-to-cart {
+.btn add-to-cart {
     background: var(--secondaryColor);
     border: none;
     outline: none;
